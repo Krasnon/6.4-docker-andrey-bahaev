@@ -1,0 +1,19 @@
+version: '3.9'
+
+services:
+  alertmanager:
+    image: prom/alertmanager:latest
+    container_name: bahaev-as-netology-alertmanager
+    volumes:
+      - ./alertmanager:/etc/alertmanager
+    networks:
+      - bahaev-as-my-netology-hw
+    ports:
+      - "9093:9093"
+    restart: unless-stopped
+    depends_on:
+      - prometheus
+
+networks:
+  bahaev-as-my-netology-hw:
+    external: true

@@ -1,0 +1,25 @@
+version: '3.9'
+
+services:
+  grafana:
+    image: grafana/grafana:latest
+    container_name: bahaev-as-netology-grafana
+    volumes:
+      - ./grafana/custom.ini:/etc/grafana/grafana.ini
+      - grafana_data:/var/lib/grafana
+    environment:
+      - GF_PATHS_CONFIG=/etc/grafana/grafana.ini
+    networks:
+      - bahaev-as-my-netology-hw
+    ports:
+      - "80:3000"
+    depends_on:
+      - prometheus
+    restart: unless-stopped
+
+volumes:
+  grafana_data:
+
+networks:
+  bahaev-as-my-netology-hw:
+    external: true

@@ -1,0 +1,32 @@
+# .gitignore
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Logs
+*.log
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Docker
+*.env
+.env
+docker-compose.override.yml
+
+# VSCode/IDE
+.vscode/
+.idea/
+
+# Node/npm
+node_modules/
+
+# Python venv
+venv/
+.env/
+
+# Ignore secrets (если есть)
+secrets.yml
