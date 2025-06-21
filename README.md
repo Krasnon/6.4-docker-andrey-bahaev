@@ -124,6 +124,17 @@ docker compose -f docker-compose.yml -f docker-compose-pushgateway.yml -f docker
 * скриншот команды docker ps после запуске docker-compose.yml;
 * скриншот графика, постоенного на основе вашей метрики.
 
+**Скриншоты выполнения:**
+
+- [График в Grafana по метрике bahaev_as](img/Grafana.png)
+- [Результат команды docker ps](img/docker-ps.png)
+
+**Конфигурация сервисов:**
+
+- [docker-compose.yml](docker-compose.yml)
+- [docker-compose-pushgateway.yml](docker-compose-pushgateway.yml)
+- [docker-compose-grafana.yml](docker-compose-grafana.yml)
+
 ---
 
 ### Задание 8
@@ -134,6 +145,7 @@ docker compose -f docker-compose.yml -f docker-compose-pushgateway.yml -f docker
 
 В качестве решения приложите скриншот консоли с проделанными действиями.
 
+![Скриншот удаления контейнеров](img/docker-rm-all.png)
 ---
 
 ## Дополнительные задания* (со звёздочкой)
@@ -152,7 +164,16 @@ docker compose -f docker-compose.yml -f docker-compose-pushgateway.yml -f docker
 4. Обеспечьте внешний доступ к порту 9093 c докер-сервера.
 
 В качестве решения приложите скриншот с событием из Alertmanager.
+**Конфигурация для Alertmanager и алертов:**
 
+- [docker-compose-alertmanager.yml](docker-compose-alertmanager.yml)
+- [alertmanager.yml](alertmanager/alertmanager.yml)
+- [prometheus.yml](prometheus/prometheus.yml)
+- [alert.rules.yml](prometheus/alert.rules.yml)
+
+**Скриншот с событием из Alertmanager:**
+
+![Событие в Alertmanager](img/Alertmanager.png)
 ---
 
 ### Задание 10* 
@@ -163,25 +184,3 @@ docker compose -f docker-compose.yml -f docker-compose-pushgateway.yml -f docker
 
 1. Опишите выполненный вами процесс развертывания сценария.
 2. Как вы думаете зачем может понадобиться такой способ развертывания?
-
-## Внешний доступ к сервисам
-
-Актуальный внешний IP виртуальной машины: **34.59.39.236**
-
-- Prometheus: http://34.59.39.236:9090
-- Pushgateway: http://34.59.39.236:9091
-- Grafana: http://34.59.39.236
-
-Для корректной работы сервисов в Google Cloud необходимо создать правила фаервола, разрешающие доступ к портам 22 (SSH), 80 (Grafana), 9090 (Prometheus), 9091 (Pushgateway) для всех источников (0.0.0.0/0). Не блокируйте порт 22, чтобы не потерять доступ к VM.
-
-Пример команды для создания правила фаервола:
-
-```
-gcloud compute firewall-rules create allow-prometheus-grafana \
-  --direction=INGRESS \
-  --priority=1000 \
-  --network=default \
-  --action=ALLOW \
-  --rules=tcp:22,tcp:80,tcp:9090,tcp:9091 \
-  --source-ranges=0.0.0.0/0
-```
